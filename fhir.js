@@ -108,8 +108,7 @@ FHIR = function(url) {
     }
 }
 
-// UI tests
-
+   //show Patient resource
    this.showPatients = function(){
     // list patients
     var x = new FHIR();
@@ -129,5 +128,5 @@ FHIR = function(url) {
     4;
 }
 
-
+// test show Patient resource
 this.showPatients();
