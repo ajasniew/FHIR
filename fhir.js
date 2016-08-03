@@ -1,8 +1,15 @@
-//base on Jonas code
-console.log('on fihr.js');
+//code base on: https://github.com/SBU-BMI/fhir
+
+console.log('start fihr.js');
+
+var defaultUrl   = "https://open-api.fhir.me/";
+var typeofString = "string";
+var errorMsg     = "error: ";
+var colorNavy    = "navy";
+
 FHIR = function(url) {
     if (!url) {
-        url = "https://open-api.fhir.me/";
+        url = defaultUrl;
     }
     this.url = url;
 
@@ -32,7 +39,7 @@ FHIR = function(url) {
             }
             if (!onErr) {
                 onErr = function(x) {
-                    console.log('error: ', x);
+                    console.log(errorMsg, x);
                 }
             }
             var c = 0;
@@ -65,16 +72,16 @@ FHIR = function(url) {
             return this.Patient(uid).then(function(x) {
                 fun(x);
             }).catch(function(e) {
-                console.log('error: ', e);
+                console.log(errorMsg, e);
             })
         } else {
             if (!uid) {
                 // no uid provided, get the list
                 return this.getJSON(this.url + "Patient?_format=json");
             } else {
-                if (typeof (uid) == "string") {
+                if (typeof (uid) === typeofString) {
                     return this.getJSON(this.url + 'Patient/' + uid + '?_format=json');
-                } else if (uid.length == 0) {
+                } else if (uid.length === 0) {
                     // to allow for empty Arrays
                     return this.Patient(false);
                 } else {
@@ -95,7 +102,7 @@ FHIR = function(url) {
         }
         var pre = document.getElementById(id);
         pre.innerHTML=JSON.stringify(x,null,3);
-        pre.style.color='blue';
+        pre.style.color=colorNavy;
         4;
 
     }
@@ -103,14 +110,14 @@ FHIR = function(url) {
 
 // UI tests
 
-ui1 = function(){
+   this.showPatients = function(){
     // list patients
     var x = new FHIR();
     var div = document.createElement('div');
     div.id='ui1';
     document.body.appendChild(div);
     var h = '<button id="getPatientData">Get Patient data</button><pre id="FHIRpre"></pre>';
-    div.innerHTML=h;
+    div.innerHTML= h;
     var getPatientDataButton = document.getElementById('getPatientData');
     getPatientDataButton.onclick=function(){
         x.Patient()
@@ -123,4 +130,4 @@ ui1 = function(){
 }
 
 
-ui1();
+this.showPatients();
