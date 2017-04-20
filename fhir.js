@@ -26,7 +26,7 @@ FHIR = function(url) {
         }
         return y;
     }
-
+    //test
     this.getJSON = function(url, h) {        
         var getJSON = function(u, fun, onErr) {
             if (!u) {
